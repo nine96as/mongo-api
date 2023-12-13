@@ -5,9 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "connect-db": "node ./database/connect.js",
-    "start-watch": "node --watch index.js",
-    "dev": "run-p -r connect-db start-watch"
+    "dev": "node --watch index.js"
   },
   "keywords": [],
   "author": "",
