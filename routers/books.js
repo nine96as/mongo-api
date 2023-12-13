@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { create, index } from '../controllers/books.js';
+import { create, index, show } from '../controllers/books.js';
 
 const booksRouter = Router();
 
-booksRouter.post('/', create);
 booksRouter.get('/', index);
+booksRouter.post('/', create);
+booksRouter.get('/:id', show);
 
 export default booksRouter;
