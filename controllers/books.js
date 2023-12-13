@@ -8,15 +8,15 @@ export const index = async (req, res) => {
       data: books
     });
   } catch (e) {
-    res.status(400).send({ error: e.message });
+    res.status(400).json({ error: e.message });
   }
 };
 
 export const create = async (req, res) => {
-  const { title, author, publishYear } = req.body;
   try {
+    const { title, author, publishYear } = req.body;
     if (!title || !author || !publishYear)
-      return res.status(400).send({
+      return res.status(400).json({
         error: 'You must send all required fields: title, author, publishYear'
       });
 
@@ -37,6 +37,23 @@ export const show = async (req, res) => {
     const { id } = req.params;
     res.status(200).json(await Book.findById(id));
   } catch (e) {
-    res.status(404).send({ error: e.message });
+    res.status(404).json({ error: e.message });
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, author, publishYear } = req.body;
+    if (!title && !author && !publishYear)
+      return res.status(400).json({
+        error: 'You must specify one of: title, author, publishYear'
+      });
+
+    res
+      .status(200)
+      .json(await Book.findByIdAndUpdate(id, req.body, { new: true }));
+  } catch (e) {
+    res.status(404).json({ error: e.message });
   }
 };
