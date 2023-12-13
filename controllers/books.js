@@ -57,3 +57,12 @@ export const update = async (req, res) => {
     res.status(404).json({ error: e.message });
   }
 };
+
+export const destroy = async (req, res) => {
+  try {
+    const { id } = req.params;
+    res.status(200).json(await Book.findByIdAndDelete(id));
+  } catch (e) {
+    res.status(404).json({ error: e.message });
+  }
+};
